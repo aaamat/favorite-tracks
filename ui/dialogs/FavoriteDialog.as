@@ -18,7 +18,7 @@ class FavoriteDialog : ModalDialog
             UI::PushStyleColor(UI::Col::ChildBg, UI::HSV(0.0f, 0.0f, 0.15f));
             UI::BeginChild("TopBar", vec2(tabSize.x, (UI::GetWindowSize().y - UI::GetCursorPos().y) / 1.03));
 
-            int positionY = UI::GetCursorPos().y;
+            float positionY = UI::GetCursorPos().y;
             UI::SetCursorPos(vec2(UI::GetCursorPos().x + 15, positionY + 18));
             UI::PushFont(Constants::HEADER1);
             UI::Text("Current Map: Technica Via");
