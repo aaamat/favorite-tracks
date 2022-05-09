@@ -14,24 +14,29 @@ class ModalDialog : IRenderable
 
 	void Render()
 	{
+
 		if (!m_firstRender) {
 			UI::OpenPopup(m_id);
 		}
 
 		UI::SetNextWindowSize(int(m_size.x), int(m_size.y));
+		// if (UI::Begin("Title Test")){
+			bool isOpen = false;
+			UI::PushStyleColor(UI::Col::PopupBg, vec4(.1, .1, .1, 1));
+			if (CanClose()) {
+				isOpen = UI::BeginPopupModal(m_id, m_visible, m_flags);
+			} else {
+				isOpen = UI::BeginPopupModal(m_id, m_flags);
+			}
 
-		bool isOpen = false;
+			if (isOpen) {
+				RenderDialog();
+				UI::EndPopup();
+			}
+			UI::PopStyleColor(1);
+		// }
+		// UI::End();
 
-		if (CanClose()) {
-			isOpen = UI::BeginPopupModal(m_id, m_visible, m_flags);
-		} else {
-			isOpen = UI::BeginPopupModal(m_id, m_flags);
-		}
-
-		if (isOpen) {
-			RenderDialog();
-			UI::EndPopup();
-		}
 	}
 
 	bool CanClose()

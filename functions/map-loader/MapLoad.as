@@ -10,6 +10,6 @@ namespace MapLoader{
     }
 
     void TestLoadMapTMX(){
-        LoadMapTMX(39736);
+        
     }
 }
