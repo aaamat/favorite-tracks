@@ -24,14 +24,14 @@ class FavoriteDialog : ModalDialog
             UI::SetCursorPos(vec2(UI::GetCursorPos().x + 15, positionY + 18));
             UI::PushFont(Constants::HEADER1);
             
-            UI::Text("Current Map:" + Constants::CurrentTrackId);
+            UI::Text("Current Map: Test");
             UI::PopFont();
             UI::SameLine();
             UI::SetCursorPos(vec2(UI::GetCursorPos().x, positionY + 15));
             if (UI::GreyButton(favIcon)){
                 auto map = app.RootMap;
-                RestClient::Uid = map.MapInfo.MapUid;
-                startnew(RestClient::GetTrackIdByUid);
+                Favorites::Uid = map.MapInfo.MapUid;
+                startnew(Favorites::FavorizeByUid);
 //              mapID = RestClient::GetTrackIdByUid(map.MapInfo.MapUid) + "";
             }
             
