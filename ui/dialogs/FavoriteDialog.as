@@ -1,7 +1,7 @@
 class FavoriteDialog : Window
 {
     string favIcon = Icons::Kenney::HeartO;
-    wstring mapName = "Currently No Track Loaded";
+    wstring trackName = "Currently No Track Loaded";
     CTrackMania@ app = cast<CTrackMania>(GetApp());
 
     FavoriteDialog(){
@@ -26,9 +26,9 @@ class FavoriteDialog : Window
 
             auto map = app.RootMap;
             if (map != null){
-                mapName = StripFormatCodes(map.MapInfo.Name);
+                trackName = StripFormatCodes(map.MapInfo.Name);
             }
-            UI::Text("Current Map: " + mapName);
+            UI::Text("Current Track: " + trackName);
             UI::PopFont();
             UI::SameLine();
             UI::SetCursorPos(vec2(UI::GetCursorPos().x, positionY + 15));
@@ -52,6 +52,9 @@ class FavoriteDialog : Window
             UI::PushStyleVar(UI::StyleVar::CellPadding, vec2(12, 6));
             UI::PushStyleVar(UI::StyleVar::FramePadding, vec2(10, 6));   
 
+            Json::Value favArray = DB::GetFavorites();
+            CachedImage@ img = Images::CachedFromURL("");
+        
             if (UI::BeginTable("FavList", 4, UI::TableFlags::ScrollY)){
                 // UI::AlignTextToFramePadding(); 
                 UI::TableSetupColumn("", UI::TableColumnFlags::WidthFixed, 0);
@@ -61,48 +64,54 @@ class FavoriteDialog : Window
                 UI::TableHeadersRow();
                 UI::TableNextRow();
                 UI::TableSetColumnIndex(0);
-                UI::Dummy(vec2(0, 0));
-                UI::SameLine();
-                auto img = Images::CachedFromURL("https://trackmania.exchange/tracks/thumbnail/57885");
-                UI::CyanButton(Icons::FileImageO);
+                
+                for(uint i = 0; i < favArray.Length; i++){
+                    UI::PushID("favorites" + i);
+                    UI::TableSetColumnIndex(0);
+                    UI::Dummy(vec2(0, 0));
+                    UI::SameLine();
+                    dictionary@ data;
+                    string trackId = favArray[i]["TrackId"];
+                    string url = "https://trackmania.exchange/tracks/thumbnail/" + trackId;
+                    img = Images::CachedFromURL(url);
+                    UI::CyanButton(Icons::FileImageO);
                     if (UI::IsItemHovered() && img.m_texture !is null){
                         UI::BeginTooltip();
                         UI::Image(img.m_texture, vec2(400, 290));
                         UI::EndTooltip();
                     }
-                UI::TableSetColumnIndex(1);
-                // UI::AlignTextToFramePadding();
-                UI::Text("Streckenname2");
-                UI::TableSetColumnIndex(2);
-                UI::Text("Author2");
-                UI::TableSetColumnIndex(3);
-                UI::PushStyleColor(UI::Col::Button, UI::HSV(0.0f, 0.7f, 0.7f));
-                UI::Button(Icons::Kenney::Heart);
-                UI::PopStyleColor(1);
-                UI::SameLine();
-                UI::GreenButton(Icons::Play);
-                UI::TableNextRow();
-                UI::TableSetColumnIndex(0);
-                UI::Dummy(vec2(0, 0));
-                UI::SameLine();
-                img = Images::CachedFromURL("https://trackmania.exchange/tracks/thumbnail/57885");
-                UI::CyanButton(Icons::FileImageO);
-                    if (UI::IsItemHovered() && img.m_texture !is null){
-                        UI::BeginTooltip();
-                        UI::Image(img.m_texture, vec2(400, 290));
-                        UI::EndTooltip();
+                    UI::TableSetColumnIndex(1);
+                    UI::Text(favArray[i]["TrackName"]);
+                    UI::TableSetColumnIndex(2);
+                    UI::Text(favArray[i]["Author"]);
+                    UI::TableSetColumnIndex(3);
+                    UI::PushStyleColor(UI::Col::Button, UI::HSV(0.0f, 0.7f, 0.7f));
+                    string trackName = favArray[i]["TrackName"];
+                    string trackIdFav = favArray[i]["TrackId"];
+                    if(UI::Button(Icons::Kenney::Heart)){
+                        DB::RemoveFavorite(trackIdFav);
                     }
+                    UI::PopStyleColor(1);
+                    UI::SameLine();
+                    if(UI::GreenButton(Icons::Play)){
+                        TrackLoader::TrackUrl = "https://trackmania.exchange/maps/download/" + trackIdFav;
+                        startnew(TrackLoader::LoadTrack);
+                    }
+                    UI::PopID();
+                    UI::TableNextRow();
+                }
+                UI::Separator();
                 UI::TableSetColumnIndex(1);
-                // UI::AlignTextToFramePadding();
-                UI::Text("Streckenname1");
+                UI::Text("Current Track of the day");
                 UI::TableSetColumnIndex(2);
-                UI::Text("Author1");
+                UI::Text("unknown");
                 UI::TableSetColumnIndex(3);
-                UI::PushStyleColor(UI::Col::Button, UI::HSV(0.0f, 0.7f, 0.7f));
-                UI::Button(Icons::Kenney::Heart);  
-                UI::PopStyleColor(1);
-                UI::SameLine();
-                UI::GreenButton(Icons::Play);
+                if(UI::GreenButton(Icons::Play)){
+                    // TrackLoader::TrackUrl = "https://trackmania.exchange/maps/download/" + trackIdFav;
+                    // startnew(TrackLoader::LoadTrack);
+                    startnew(TrackLoader::LoadTrackOfTheDay);
+                }
+                
                 UI::EndTable();
             }
 
@@ -125,6 +134,8 @@ class FavoriteDialog : Window
         }        
         UI::PopStyleColor(3);
         UI::EndTabBar();
+    }
+    void AddFavButton(string trackName){
     }
 }
 FavoriteDialog favDialog;

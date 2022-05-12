@@ -16,14 +16,16 @@ namespace DB{
         return favorites;
     }
     
-    void AddFavorite(string mapId){
+    void AddFavorite(string trackId, string trackName, string trackAuthor){
         Json::Value favList = Constants::Data["Favorites"];
         Json::Value favorite = Json::Object();
-        favorite["MapId"] = mapId;
+        favorite["TrackId"] = trackId;
+        favorite["TrackName"] = trackName;
+        favorite["Author"] = trackAuthor;
         favorite["Group"] = "default";
         bool exists = false;
         for(uint i = 0; i<favList.Length;i++){
-            if(favList[i]["MapId"] == mapId){
+            if(favList[i]["TrackId"] == trackId){
                 exists = true;
             }
         }
@@ -34,11 +36,11 @@ namespace DB{
         Save(); 
     }
     
-    void RemoveFavorite(string mapId){
+    void RemoveFavorite(string trackId){
         Json::Value favList = Constants::Data["Favorites"];
 
         for(uint i=0; i<favList.Length; i++){
-            if(favList[i]["MapId"] == mapId){
+            if(favList[i]["TrackId"] == trackId){
                 favList.Remove(i);
             }
         }

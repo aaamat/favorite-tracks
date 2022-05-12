@@ -4,6 +4,7 @@ void Main(){
     // DB::AddFavorite("12221121");
     // DB::RemoveFavorite("12221121");
     @Constants::HEADER1 = Resources::GetFont("DroidSans.ttf", 18);
+    print("test123");
 }
 
 void RenderMenu(){
