@@ -3,3 +3,6 @@ name     = "Map Switcher"
 author   = "Tamaaa, Headscracher"
 category = "Maptool"
 version  = "0.0.1"
+
+[script]
+imports = [ "Icons.as", "Formatting.as", "Time.as"]

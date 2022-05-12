@@ -1,7 +1,7 @@
 class FavoriteDialog : ModalDialog
 {
     string favIcon = Icons::Kenney::HeartO;
-    string mapID = "Test";
+    wstring mapName = "Currently No Track Loaded";
     CTrackMania@ app = cast<CTrackMania>(GetApp());
 
     FavoriteDialog(){
@@ -23,13 +23,16 @@ class FavoriteDialog : ModalDialog
             float positionY = UI::GetCursorPos().y;
             UI::SetCursorPos(vec2(UI::GetCursorPos().x + 15, positionY + 18));
             UI::PushFont(Constants::HEADER1);
-            
-            UI::Text("Current Map: Test");
+
+            auto map = app.RootMap;
+            if (map != null){
+                mapName = StripFormatCodes(map.MapInfo.Name);
+            }
+            UI::Text("Current Map: " + mapName);
             UI::PopFont();
             UI::SameLine();
             UI::SetCursorPos(vec2(UI::GetCursorPos().x, positionY + 15));
             if (UI::GreyButton(favIcon)){
-                auto map = app.RootMap;
                 Favorites::Uid = map.MapInfo.MapUid;
                 startnew(Favorites::FavorizeByUid);
 //              mapID = RestClient::GetTrackIdByUid(map.MapInfo.MapUid) + "";
