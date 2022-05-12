@@ -1,4 +1,4 @@
-class FavoriteDialog : ModalDialog
+class FavoriteDialog : Window
 {
     string favIcon = Icons::Kenney::HeartO;
     string mapID = "Test";
@@ -124,3 +124,4 @@ class FavoriteDialog : ModalDialog
         UI::EndTabBar();
     }
 }
+FavoriteDialog favDialog;

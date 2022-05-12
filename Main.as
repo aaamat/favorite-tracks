@@ -8,10 +8,19 @@ void Main(){
 
 void RenderMenu(){
     if(UI::MenuItem("\\$e22" + Icons::Heart + "\\$z Map Switcher")){
-        Renderables::Add(FavoriteDialog());
+        // Renderables::Add(FavoriteDialog());
+        favDialog.isOpen = !favDialog.isOpen;
+    }
+    if(UI::BeginMenu("Map Switcher")){
+        if(UI::MenuItem("About")){
+            aboutDialog.isOpen = !aboutDialog.isOpen;     
+        }
+        UI::EndMenu();
     }
 }
 
 void Render(){
-    Renderables::Render();
+    // Renderables::Render();
+    favDialog.Render();
+    aboutDialog.Render();
 }
