@@ -1,4 +1,4 @@
-class FavoriteDialog : ModalDialog
+class FavoriteDialog : Window
 {
     string favIcon = Icons::Kenney::HeartO;
     wstring mapName = "Currently No Track Loaded";
@@ -127,3 +127,4 @@ class FavoriteDialog : ModalDialog
         UI::EndTabBar();
     }
 }
+FavoriteDialog favDialog;
