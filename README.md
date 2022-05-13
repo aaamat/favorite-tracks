@@ -1,12 +1,20 @@
 # TrackMania Openplanet FavoriteTracks
 
-This is a Openplanet Plugin for Trackmania which is providing a favorize window.
+This is an Openplanet Plugin for Trackmania which is providing a favorize window and giving the possibility to always switch between favorized tracks.
 
 Currently supported features:
 
-- Favorizing tracks available on TMExchange
+- Favorizing Tracks
 - Playing the favorized tracks
 - Joining the current Track of the Day Live-Server
+
+Planned features:
+
+- Design Tweaks
+- Search for tracks within the plugin
+- Sharing a list of your favorite tracks to others
+- Switch between different lists of favorite tracks
+- Adding an Info-Tab for favorized tracks with more details about the track and the leaderboard
 
 
 License

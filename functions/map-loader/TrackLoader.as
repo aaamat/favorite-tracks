@@ -8,7 +8,7 @@ namespace TrackLoader{
         Json::Value favData = RestClient::GetTrackInfoByUid(Uid);
         TrackUrl = favData["downloadUrl"];
         CTrackMania@ app = cast<CTrackMania>(GetApp());
-        //The TitleControlScriptAPI can only be called while in main menu, so the first step is to get to there.
+        // The TitleControlScriptAPI can only be called while in main menu, so the first step is to get to there.
         app.BackToMainMenu();
         /* Wait until the ManiaTitleControlScriptApi is callable */
         while(!app.ManiaTitleControlScriptAPI.IsReady){
@@ -17,17 +17,7 @@ namespace TrackLoader{
         app.ManiaTitleControlScriptAPI.PlayMap(TrackUrl,"","");
     }
     
-    void LoadNonTMXMap(){
-        // CTrackMania@ app = cast<CTrackMania>(GetApp());
-        // string uid = app.RootMap.MapInfo.MapUid;
-        // string url = RestClient::GetTrackUrlByUid(uid);
-        // TrackUrl = url;
-        // print("loading track: " + TrackUrl);
-        // LoadTrack();
-        // print("please get loadet");
-    }
-
-    /* Loads and connects to the current trackoftheday live server by using the live-services nadeo api */
+    /* Loads and connects to the current Track of the Day live server by using the live-services nadeo api */
     void LoadTrackOfTheDay(){
         try{
             NadeoServices::AddAudience("NadeoLiveServices");

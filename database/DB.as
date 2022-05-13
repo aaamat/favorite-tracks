@@ -3,7 +3,7 @@ namespace DB{
         if(Constants::Data.GetType() == Json::Type::Null){
             Constants::Data = Json::Object();
             Constants::Data["Favorites"] = Json::Array();
-            Constants::Data["Version"] = "0.0.1";
+            Constants::Data["Version"] = "1.0.0";
             Save();
         }
     }

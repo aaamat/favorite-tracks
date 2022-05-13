@@ -1,8 +1,8 @@
 [meta]
-name     = "Map Switcher"
+name     = "Favorite Tracks"
 author   = "Tamaaa, Headscracher"
 category = "Maptool"
-version  = "0.0.1"
+version  = "1.0.0"
 
 [script]
 imports = [ "Icons.as", "Formatting.as", "Time.as"]
