@@ -6,7 +6,7 @@ Currently supported features:
 
 - Favorizing tracks available on TMExchange
 - Playing the favorized tracks
-- Joining the current trackoftheday live server
+- Joining the current Track of the Day Live-Server
 
 
 License
