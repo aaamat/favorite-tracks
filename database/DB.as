@@ -16,12 +16,14 @@ namespace DB{
         return favorites;
     }
     
-    void AddFavorite(string trackId, string trackName, string trackAuthor){
+    void AddFavorite(string trackId, wstring trackName, wstring trackAuthor){
         Json::Value favList = Constants::Data["Favorites"];
         Json::Value favorite = Json::Object();
+        Json::Value favData = RestClient::GetTrackInfoByUid(trackId);
         favorite["TrackId"] = trackId;
-        favorite["TrackName"] = trackName;
-        favorite["Author"] = trackAuthor;
+        favorite["TrackName"] = string(trackName);
+        favorite["Author"] = string(trackAuthor);
+        favorite["Thumbnail"] = favData["thumbnailUrl"];
         favorite["Group"] = "default";
         bool exists = false;
         for(uint i = 0; i<favList.Length;i++){

@@ -34,6 +34,8 @@ class FavoriteDialog : Window
             UI::SetCursorPos(vec2(UI::GetCursorPos().x, positionY + 15));
             if (UI::GreyButton(favIcon)){
                 Favorites::Uid = map.MapInfo.MapUid;
+                Favorites::trackName = StripFormatCodes(map.MapInfo.Name);
+                Favorites::trackAuthor = map.MapInfo.AuthorNickName;
                 startnew(Favorites::FavorizeByUid);
 //              mapID = RestClient::GetTrackIdByUid(map.MapInfo.MapUid) + "";
             }
@@ -73,8 +75,8 @@ class FavoriteDialog : Window
                     UI::SameLine();
                     dictionary@ data;
                     string trackId = favArray[i]["TrackId"];
-                    string url = "https://trackmania.exchange/tracks/thumbnail/" + trackId;
-                    img = Images::CachedFromURL(url);
+                    string imgUrl = favArray[i]["Thumbnail"];
+                    img = Images::CachedFromURL(imgUrl);
                     /* Image button (shows the image on hover) */
                     UI::CyanButton(Icons::FileImageO);
                     if (UI::IsItemHovered() && img.m_texture !is null){
@@ -88,17 +90,17 @@ class FavoriteDialog : Window
                     UI::Text(favArray[i]["Author"]);
                     UI::TableSetColumnIndex(3);
                     UI::PushStyleColor(UI::Col::Button, UI::HSV(0.0f, 0.7f, 0.7f));
-                    string trackName = favArray[i]["TrackName"];
-                    string trackIdFav = favArray[i]["TrackId"];
+                    // string trackName = favArray[i]["TrackName"];
+                    // string trackIdFav = favArray[i]["TrackId"];
                     /* Favorize Button */
                     if(UI::Button(Icons::Kenney::Heart)){
-                        DB::RemoveFavorite(trackIdFav);
+                        DB::RemoveFavorite(trackId);
                     }
                     UI::PopStyleColor(1);
                     UI::SameLine();
                     /* Play track button */
                     if(UI::GreenButton(Icons::Play)){
-                        TrackLoader::TrackUrl = "https://trackmania.exchange/maps/download/" + trackIdFav;
+                        TrackLoader::Uid = trackId;
                         startnew(TrackLoader::LoadTrack);
                     }
                     UI::PopID();
