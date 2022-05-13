@@ -6,7 +6,7 @@ class AboutDialog : Window{
     void RenderDialog() override{
         UI::Text("Favorite Tracks");
         UI::Text("Authors: Tamaaa, Headscracher");
-        UI::Text("URL: https://github.com/aaamat/map-switcher");
+        UI::Text("URL: https://github.com/aaamat/favorite-tracks");
         UI::SetCursorPos(vec2(UI::GetCursorPos().x, UI::GetCursorPos().y + 15));
         UI::Text("Map Switcher was only possible with the following Open-Source-Projects");
         vec2 tabSize = vec2(UI::GetWindowSize().x - 30, UI::GetWindowSize().y - UI::GetCursorPos().y - 36);
