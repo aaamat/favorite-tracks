@@ -1,10 +1,10 @@
 class AboutDialog : Window{
     AboutDialog(){
-        super("Map Switcher - About");
+        super("Favorite Tracks - About");
         m_size = vec2(600, 400);
     }
     void RenderDialog() override{
-        UI::Text("Map Switcher");
+        UI::Text("Favorite Tracks");
         UI::Text("Authors: Tamaaa, Headscracher");
         UI::Text("URL: https://github.com/aaamat/map-switcher");
         UI::SetCursorPos(vec2(UI::GetCursorPos().x, UI::GetCursorPos().y + 15));

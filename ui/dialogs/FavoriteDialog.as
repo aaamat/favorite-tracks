@@ -5,7 +5,7 @@ class FavoriteDialog : Window
     CTrackMania@ app = cast<CTrackMania>(GetApp());
 
     FavoriteDialog(){
-        super("Map Switcher");
+        super("Favorite Tracks");
         m_size = vec2(600, 400);
     }
 
@@ -23,28 +23,46 @@ class FavoriteDialog : Window
             float positionY = UI::GetCursorPos().y;
             UI::SetCursorPos(vec2(UI::GetCursorPos().x + 15, positionY + 18));
             UI::PushFont(Constants::HEADER1);
-
+            if(app == null){
+                return;
+            }
             auto map = app.RootMap;
             if (map != null){
                 trackName = StripFormatCodes(map.MapInfo.Name);
             }
             UI::Text("Current Track: " + trackName);
             UI::PopFont();
-            UI::SameLine();
-            UI::SetCursorPos(vec2(UI::GetCursorPos().x, positionY + 15));
-            if (UI::GreyButton(favIcon)){
-                Favorites::Uid = map.MapInfo.MapUid;
-                Favorites::trackName = StripFormatCodes(map.MapInfo.Name);
-                Favorites::trackAuthor = map.MapInfo.AuthorNickName;
-                startnew(Favorites::FavorizeByUid);
-//              mapID = RestClient::GetTrackIdByUid(map.MapInfo.MapUid) + "";
-            }
-            
-            if (UI::IsItemHovered()){
-                favIcon = Icons::Kenney::Heart;
-            }
-            else {
-                favIcon = Icons::Kenney::HeartO;
+            if(map != null){
+                UI::SameLine();
+                UI::SetCursorPos(vec2(UI::GetCursorPos().x, positionY + 15));
+                string uid = map.MapInfo.MapUid;
+                if(DB::IsFavorite(uid)){
+                    UI::PushStyleColor(UI::Col::Button, UI::HSV(0.0f, 0.7f, 0.7f));
+                    if(UI::Button(Icons::Kenney::Heart)){
+                        deleteFavoriteDialog.Uid = uid;
+                        deleteFavoriteDialog.FavName = StripFormatCodes(map.MapInfo.Name);
+                        deleteFavoriteDialog.isOpen = true;
+                        deleteFavoriteDialog.ForceClose = false;
+                        Renderables::Add(deleteFavoriteDialog);
+                    }
+                    UI::PopStyleColor(1);
+
+                }else{
+                    if (UI::GreyButton(favIcon)){
+                        Favorites::Uid = uid;
+                        Favorites::trackName = StripFormatCodes(map.MapInfo.Name);
+                        Favorites::trackAuthor = map.MapInfo.AuthorNickName;
+                        startnew(Favorites::FavorizeByUid);
+        //              mapID = RestClient::GetTrackIdByUid(map.MapInfo.MapUid) + "";
+                    }
+                    
+                    if (UI::IsItemHovered()){
+                        favIcon = Icons::Kenney::Heart;
+                    }
+                    else {
+                        favIcon = Icons::Kenney::HeartO;
+                    }
+                }
             }
 
             UI::SetCursorPos(vec2(UI::GetCursorPos().x, UI::GetCursorPos().y + 10));
@@ -94,7 +112,12 @@ class FavoriteDialog : Window
                     // string trackIdFav = favArray[i]["TrackId"];
                     /* Favorize Button */
                     if(UI::Button(Icons::Kenney::Heart)){
-                        DB::RemoveFavorite(trackId);
+                        deleteFavoriteDialog.Uid = trackId;
+                        deleteFavoriteDialog.FavName = favArray[i]["TrackName"];
+                        deleteFavoriteDialog.isOpen = true;
+                        deleteFavoriteDialog.ForceClose = false;
+                        Renderables::Add(deleteFavoriteDialog);
+                        // DB::RemoveFavorite(trackId);
                     }
                     UI::PopStyleColor(1);
                     UI::SameLine();
@@ -106,11 +129,10 @@ class FavoriteDialog : Window
                     UI::PopID();
                     UI::TableNextRow();
                 }
-                UI::Separator();
                 UI::TableSetColumnIndex(1);
-                UI::Text("Current Track of the day");
+                UI::Text("Track of the day liveserver");
                 UI::TableSetColumnIndex(2);
-                UI::Text("unknown");
+                // UI::Text("unknown");
                 UI::TableSetColumnIndex(3);
                 if(UI::GreenButton(Icons::Play)){
                     // TrackLoader::TrackUrl = "https://trackmania.exchange/maps/download/" + trackIdFav;
@@ -134,7 +156,7 @@ class FavoriteDialog : Window
         UI::PushStyleColor(UI::Col::TabActive, UI::HSV(0.65f, 0.8f, 0.8f));         
         if (UI::BeginTabItem(Icons::Search + " Search")){
             UI::BeginChild("Tab2", tabSize);
-            UI::Text("Hallo2");
+            UI::Text("coming soon");
             UI::EndChild();
             UI::EndTabItem();
         }        

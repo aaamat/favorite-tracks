@@ -4,8 +4,14 @@ void Main(){
     @Constants::HEADER1 = Resources::GetFont("DroidSans.ttf", 18);
 }
 
+void RenderMenu(){
+    if(UI::MenuItem("\\$e22" + Icons::Heart + "\\$z Favorites")){
+        favDialog.isOpen = !favDialog.isOpen;
+        Renderables::Add(favDialog);
+    }
+}
 void RenderMenuMain(){
-    if(UI::BeginMenu("\\$e22" + Icons::Heart + "\\$z Map Switcher")){
+    if(UI::BeginMenu("\\$e22" + Icons::Heart + "\\$z Favorite Tracks")){
         if(UI::MenuItem("\\$e22" + Icons::Heart + "\\$z Favorites")){
             favDialog.isOpen = !favDialog.isOpen;
             Renderables::Add(favDialog);
@@ -14,18 +20,11 @@ void RenderMenuMain(){
             aboutDialog.isOpen = !aboutDialog.isOpen;     
             Renderables::Add(aboutDialog);
         }
-        if(UI::MenuItem("Test")){
-            CTrackMania@ app = cast<CTrackMania>(GetApp());
-            
-            // print("test " + path);
-            // TrackLoader::TrackUrl = path;
-            startnew(TrackLoader::LoadNonTMXMap);
-        }
         UI::EndMenu();
     }
 }
 
-void Render(){
+void RenderInterface(){
     //Renders all the currently added IRenderables
     Renderables::Render();
 }
