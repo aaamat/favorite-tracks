@@ -19,7 +19,7 @@ Big thanks to all the open-source projects which helped us make this project pos
 Used Projects:
 
 ### [ManiaExchange Randomizer](https://github.com/tm-rmc/MXRandom)
-[License](MXRandom.md)
+[License](MXRandom.txt)
 
 
 ### [ItemExchange plugin for Trackmania](https://github.com/RuurdBijlsma/tm-item-exchange)
@@ -27,5 +27,5 @@ Used Projects:
 
 
 ### [Ultimate Medals](https://github.com/Phlarx/tm-ultimate-medals)
-[License](UltimateMedals.md)
+[License](UltimateMedals.txt)
 
