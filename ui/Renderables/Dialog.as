@@ -1,4 +1,4 @@
-class Window : IRenderable
+class Dialog : IRenderable
 {
 
 	//The ID is set by the calling the parent constructor in the child class. It represents the Name of the Window and is shown in the title bar
@@ -6,10 +6,12 @@ class Window : IRenderable
 
 	//Represents if the current window is open or closed (set by the Window itself in UI::Begin)
 	bool isOpen = false;
+	bool ForceClose = false;
 	/* The Window settings (size) */
 	vec2 m_size = vec2(100, 100);
+    int m_flags = UI::WindowFlags::NoSavedSettings | UI::WindowFlags::NoResize;
 
-	Window(const string &in id)
+	Dialog(const string &in id)
 	{
 		m_id = id;
 	}
@@ -19,18 +21,23 @@ class Window : IRenderable
 		//The Render process is stoped when the window isnt visible anymore.
 		//This shouldnt be necessary tho, because the window itself will be removed out of the IRenderables Array when not visible
 		if(!isOpen) return;
+		UI::OpenPopup(m_id);
 
-		UI::PushStyleColor(UI::Col::WindowBg, vec4(0.1f, 0.1f, 0.1f, 1.0f));
+		UI::PushStyleColor(UI::Col::PopupBg, vec4(.1, .1, .1, 1));
 		UI::SetNextWindowSize(int(m_size.x), int(m_size.y));
-		if(UI::Begin(m_id, isOpen)){
+		if(UI::BeginPopupModal(m_id, isOpen, m_flags)){
 			RenderDialog();
-			UI::End();
+			UI::EndPopup();
 		}
 		UI::PopStyleColor(1);
 	}
 
 	bool IsVisible(){
-		return isOpen;
+		if(ForceClose == true){
+			return false;
+		}else{
+			return isOpen;
+		}
 	}
 
 	void RenderDialog()

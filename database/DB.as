@@ -16,6 +16,16 @@ namespace DB{
         return favorites;
     }
     
+    bool IsFavorite(string trackId){
+        Json::Value favList = Constants::Data["Favorites"];
+        for(uint i=0; i<favList.Length; i++){
+            if(favList[i]["TrackId"] == trackId){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     void AddFavorite(string trackId, wstring trackName, wstring trackAuthor){
         Json::Value favList = Constants::Data["Favorites"];
         Json::Value favorite = Json::Object();
@@ -26,7 +36,7 @@ namespace DB{
         favorite["Thumbnail"] = favData["thumbnailUrl"];
         favorite["Group"] = "default";
         bool exists = false;
-        for(uint i = 0; i<favList.Length;i++){
+        for(uint i=0; i<favList.Length;i++){
             if(favList[i]["TrackId"] == trackId){
                 exists = true;
             }

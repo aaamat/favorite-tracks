@@ -1,4 +1,4 @@
-# TrackMania Openplanet MapSwitcher
+# TrackMania Openplanet FavoriteTracks
 
 This is a Openplanet Plugin for Trackmania which is providing a favorize window.
 
