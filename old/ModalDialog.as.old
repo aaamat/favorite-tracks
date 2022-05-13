@@ -1,0 +1,65 @@
+/*
+* The ModalDialog is based on PopupModals, so everything else will be greyed out as long as
+* an Dialog is open. Therefore this is only used for check ups.
+*/
+class ModalDialog : IRenderable
+{
+	//The ID is set in the child by calling the parent constructor and is used to define the Modal Title
+	string m_id;
+	bool m_firstRender = false;
+	bool m_visible = true;
+
+	/* The dialog settings (size and flags) */
+	vec2 m_size = vec2(100, 100);
+    int m_flags = UI::WindowFlags::NoSavedSettings;
+
+	ModalDialog(const string &in id)
+	{
+		m_id = id;
+	}
+
+	void Render()
+	{
+
+		if (!m_firstRender) {
+			UI::OpenPopup(m_id);
+		}
+
+		UI::SetNextWindowSize(int(m_size.x), int(m_size.y));
+		bool isOpen = false;
+		UI::PushStyleColor(UI::Col::PopupBg, vec4(.1, .1, .1, 1));
+		if (CanClose()) {
+			isOpen = UI::BeginPopupModal(m_id, m_visible, m_flags);
+		} else {
+			isOpen = UI::BeginPopupModal(m_id, m_flags);
+		}
+
+		if (isOpen) {
+			RenderDialog();
+			UI::EndPopup();
+		}
+		UI::PopStyleColor(1);
+
+	}
+
+	bool CanClose()
+	{
+		return true;
+	}
+
+	/* Is used to remove the child instance from the Render function when the dialog is closed  */
+	bool ShouldDisappear()
+	{
+		return !m_visible;
+	}
+
+	void Close()
+	{
+		m_visible = false;
+		UI::CloseCurrentPopup();
+	}
+
+	void RenderDialog()
+	{
+	}
+}

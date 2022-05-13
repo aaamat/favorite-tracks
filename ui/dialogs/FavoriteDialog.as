@@ -65,6 +65,7 @@ class FavoriteDialog : Window
                 UI::TableNextRow();
                 UI::TableSetColumnIndex(0);
                 
+                /* Loop over all favorites */
                 for(uint i = 0; i < favArray.Length; i++){
                     UI::PushID("favorites" + i);
                     UI::TableSetColumnIndex(0);
@@ -74,6 +75,7 @@ class FavoriteDialog : Window
                     string trackId = favArray[i]["TrackId"];
                     string url = "https://trackmania.exchange/tracks/thumbnail/" + trackId;
                     img = Images::CachedFromURL(url);
+                    /* Image button (shows the image on hover) */
                     UI::CyanButton(Icons::FileImageO);
                     if (UI::IsItemHovered() && img.m_texture !is null){
                         UI::BeginTooltip();
@@ -88,11 +90,13 @@ class FavoriteDialog : Window
                     UI::PushStyleColor(UI::Col::Button, UI::HSV(0.0f, 0.7f, 0.7f));
                     string trackName = favArray[i]["TrackName"];
                     string trackIdFav = favArray[i]["TrackId"];
+                    /* Favorize Button */
                     if(UI::Button(Icons::Kenney::Heart)){
                         DB::RemoveFavorite(trackIdFav);
                     }
                     UI::PopStyleColor(1);
                     UI::SameLine();
+                    /* Play track button */
                     if(UI::GreenButton(Icons::Play)){
                         TrackLoader::TrackUrl = "https://trackmania.exchange/maps/download/" + trackIdFav;
                         startnew(TrackLoader::LoadTrack);
@@ -134,8 +138,6 @@ class FavoriteDialog : Window
         }        
         UI::PopStyleColor(3);
         UI::EndTabBar();
-    }
-    void AddFavButton(string trackName){
     }
 }
 FavoriteDialog favDialog;

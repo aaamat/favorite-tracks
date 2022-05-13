@@ -1,7 +1,7 @@
 interface IRenderable
 {
 	void Render();
-	bool ShouldDisappear();
+	bool IsVisible();	
 }
 
 namespace Renderables
@@ -18,7 +18,8 @@ namespace Renderables
 		for (int i = int(g_renderables.Length) - 1; i >= 0; i--) {
 			auto rend = g_renderables[i];
 			rend.Render();
-			if (rend.ShouldDisappear()) {
+			/* When the Window is closed it wont be rendered at all */
+			if (!rend.IsVisible()) {
 				g_renderables.RemoveAt(i);
 			}
 		}
