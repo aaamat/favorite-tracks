@@ -11,7 +11,9 @@ Currently supported features:
 
 License
 
-This project is published under the GPLv3.0 License:
+This project is published under the GPLv3.0 license:
+[License](LICENSE)
+
 
 
 Big thanks to all the open-source projects which helped us make this project possible.
