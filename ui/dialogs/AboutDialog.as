@@ -59,7 +59,7 @@ class AboutDialog : Window{
             UI::SetCursorPos(vec2(UI::GetCursorPos().x + 10, UI::GetCursorPos().y));
             UI::Text("License");
             UI::PushStyleColor(UI::Col::ChildBg, UI::HSV(0.0f, 0.0f, 1.0f));
-            UI::BeginChild("ManiaExchangeLicense", vec2(tabSize.x - 10, 250));
+            UI::BeginChild("UltimateMedalsLicense", vec2(tabSize.x - 10, 250));
             UI::PushStyleColor(UI::Col::Text, UI::HSV(0.0f, 0.0f, 0.0f));
             UI::SetCursorPos(vec2(UI::GetCursorPos().x + 100, UI::GetCursorPos().y + 10));
             UI::TextWrapped(Licenses::GPLLICENSE);

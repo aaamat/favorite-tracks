@@ -23,6 +23,7 @@ namespace Images
 {
     dictionary g_cachedImages;
 
+    /* Returns the image out of the cache when it was used before */
     CachedImage@ FindExisting(const string &in url)
     {
         CachedImage@ ret = null;

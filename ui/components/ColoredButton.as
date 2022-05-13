@@ -9,7 +9,8 @@ namespace UI
         UI::PopStyleColor(3);
         return ret;
     }
-        bool GreyButton(const string &in text)
+    /* The grey button needs to be specified seperate, because the hover and active effect is calculated differntly */
+    bool GreyButton(const string &in text)
     {
         UI::PushStyleColor(UI::Col::Button, UI::HSV(0.0f, 0.0f, 0.6f));
         UI::PushStyleColor(UI::Col::ButtonHovered, UI::HSV(0.0f, 0.7f, 0.7f));
