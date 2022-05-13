@@ -2,7 +2,7 @@
 name     = "Favorite Tracks"
 author   = "Tamaaa, Headscracher"
 category = "Maptool"
-version  = "1.0.0"
+version  = "1.0"
 
 [script]
 imports = [ "Icons.as", "Formatting.as", "Time.as"]
