@@ -1,7 +1,7 @@
 class FavoriteDialog : Window
 {
     string favIcon = Icons::Kenney::HeartO;
-    wstring trackName = "Currently No Track Loaded";
+    wstring trackName = "Currently no track loaded";
     CTrackMania@ app = cast<CTrackMania>(GetApp());
 
     FavoriteDialog(){
@@ -23,16 +23,22 @@ class FavoriteDialog : Window
             float positionY = UI::GetCursorPos().y;
             UI::SetCursorPos(vec2(UI::GetCursorPos().x + 15, positionY + 18));
             UI::PushFont(Constants::HEADER1);
-            if(app == null){
+            /* I guess one of the two statements should avoid the crash at the beginning. Need to test it tho */
+            if(app is null){
+                return;
+            }
+            if(app.RootMap is null){
                 return;
             }
             auto map = app.RootMap;
-            if (map != null){
+            if (map !is null || map.Mapinfo !is null){
                 trackName = StripFormatCodes(map.MapInfo.Name);
+            }else{
+                trackName = "Currently no track loaded";
             }
             UI::Text("Current Track: " + trackName);
             UI::PopFont();
-            if(map != null){
+            if(map !is null){
                 UI::SameLine();
                 UI::SetCursorPos(vec2(UI::GetCursorPos().x, positionY + 15));
                 string uid = map.MapInfo.MapUid;
