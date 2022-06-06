@@ -125,7 +125,7 @@ class FavoriteDialog : Window
                         UI::TableNextRow();
                     }
                     UI::TableSetColumnIndex(1);
-                    UI::Text("Track of the day liveserver");
+                    UI::Text("Track Of The Day Liveserver");
                     UI::TableSetColumnIndex(2);
                     UI::TableSetColumnIndex(3);
                     if(UI::GreenButton(Icons::Play)){
