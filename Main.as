@@ -1,7 +1,7 @@
 void Main(){
     DB::Initialize();
     //Cant be initialized in the Constants File iteslf so it it assigned when loading the plugin
-    @Constants::HEADER1 = Resources::GetFont("DroidSans.ttf", 18);
+    @Constants::HEADER1 = UI::LoadFont("DroidSans.ttf", 18);
 }
 
 void RenderMenu(){
